@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from tkinter import *
+from tkinter import Tk
 import pygame, sys
 from math import *
 from pygame.locals import *
@@ -11,6 +13,10 @@ from TIDEntity.Util import *
 from pynput.mouse import Controller
 wgs84 = nv.FrameE(name='WGS84')
 SCALE = 100
+root = Tk()
+main_dialog = Frame(root)
+main_dialog.pack()
+
 pygame.init()
 pygame.mouse.set_visible(False) 
 
@@ -19,7 +25,7 @@ t = pygame.time.Clock()
 font = pygame.font.SysFont('Courier New', 14, True, False)
 pygame.display.set_caption('Hello World!')
 DISPLAYSURF = pygame.display.set_mode(
-    (400, 400),  flags=(pygame.FULLSCREEN|pygame.SCALED)
+    (400, 400),  #flags=(pygame.FULLSCREEN|pygame.SCALED)
 )
 
 FPS = 120
@@ -55,6 +61,7 @@ ALL_SPRITES.add([cur, dd1, dd2, dd3])
 SELECTED = None
 
 while True:
+    main_dialog.update()
     for track in TRACK_FILES.sprites():
         track.selected = False
         if track == SELECTED:
@@ -67,7 +74,7 @@ while True:
     
     ALL_SPRITES.clear(DISPLAYSURF, BLACK)
     ALL_SPRITES.draw(DISPLAYSURF)
-     
+
     for i in Waypoint.WP1.value:
         pygame.draw.__dict__[i["func"]](DISPLAYSURF, (0, 255, 0), **i["params"])
 
@@ -78,6 +85,7 @@ while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
+            main_dialog.destroy()
             sys.exit()
         elif event.type == MOUSEBUTTONUP:
             if event.button == 3:
