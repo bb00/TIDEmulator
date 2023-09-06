@@ -1,0 +1,3 @@
+pygame==2.3.0
+nvector==0.7.6
+dotdict==0.1
